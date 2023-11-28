@@ -1,27 +1,20 @@
 import NewGame from "./components/NewGame"
-import { useState } from "react"
+import { useState } from "react";
 
 function App() {
-  const [name, setName] = useState("");
+  const [player, setPlayer] = useState()
 
-  const gameSetHandler = difficulty => {
-    console.log(difficulty)
+  const gameSetHandler = (difficulty, name) => {
+    setPlayer({ name: name, difficulty: difficulty })
   }
-
-  const setPlayerName = (event) => {
-    return setName(event.target.value, name)
-  }
-
-  console.log(name)
-
 
   return (
     <>
       <h1>Nopeustesti</h1>
-      <NewGame 
-      onClick={gameSetHandler}
-      setPlayerName={setPlayerName}
-       />
+      <NewGame
+        onClick={gameSetHandler}
+        player={player}
+      />
     </>
   )
 }
