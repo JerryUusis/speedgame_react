@@ -1,5 +1,5 @@
 export const levels = [
-    {difficulty: "easy", circlesAmount: 3},
-    {difficulty: "medium", circlesAmount: 5},
-    {difficulty: "hard", circlesAmount: 7}
+    {difficulty: "helppo", circlesAmount: 3},
+    {difficulty: "keskivaikea", circlesAmount: 5},
+    {difficulty: "vaikea", circlesAmount: 7}
 ]
