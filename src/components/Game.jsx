@@ -6,7 +6,7 @@ const Game = ({score, circles, stopHandler}) => {
         <h2>Current score</h2>
         {circles.map((_, i) => <Circle key={i}/>)}
         <p>{score}</p>
-        <button onClick={stopHandler}></button>
+        <button onClick={stopHandler}>Lopeta peli</button>
         </>
     )
 }

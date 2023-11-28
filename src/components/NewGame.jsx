@@ -11,9 +11,9 @@ const NewGame = ({ onClick }) => {
             <h2>Aloita uusi peli  kirjoittamalla nimesi ja valitsemalla vaikeusaste</h2>
             <input type="text" placeholder="Kirjoita nimesi" onChange={setPlayerName} />
             <div className="difficulty-button-container" >
-                <button onClick={() => onClick("easy", name)}>Helppo</button>
-                <button onClick={() => onClick("medium", name)}>Keskitaso</button>
-                <button onClick={() => onClick("hard", name)}>Vaikea</button>
+                <button onClick={() => onClick("helppo", name)}>Helppo</button>
+                <button onClick={() => onClick("keskivaikea", name)}>Keskitaso</button>
+                <button onClick={() => onClick("vaikea", name)}>Vaikea</button>
             </div>
         </div>
     )
