@@ -35,12 +35,12 @@ function App() {
   }
 
   return (
-    <>
+    <div className="main-container">
       <h1>Nopeustesti</h1>
       {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
       {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler}/>}
       {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
-    </>
+    </div>
   )
 }
 
