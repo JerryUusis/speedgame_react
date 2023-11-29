@@ -34,11 +34,15 @@ function App() {
     setGameOver(!gameOver)
   }
 
+  const circleClick = (id) => {
+    console.log("circle was clicked", id)
+  }
+
   return (
     <div className="main-container">
       
       {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
-      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler}/>}
+      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} />}
       {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
     </div>
   )
