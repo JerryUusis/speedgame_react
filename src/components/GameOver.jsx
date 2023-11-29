@@ -1,7 +1,7 @@
 const GameOver = ({ closeHandler, name, difficulty }) => {
     return (
 
-        <div>
+        <div className="page-content-container">
             <h2>Peli päättyi</h2>
             <p>Hei {name}</p>
             <p>Pelasit vaikeusasteella {difficulty}</p>

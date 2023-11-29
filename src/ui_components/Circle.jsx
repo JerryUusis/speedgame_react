@@ -1,7 +1,7 @@
 const Circle = () => {
     return (
-        <div>
-            <p>circle</p>
+        <div className="circle">
+            <p></p>
         </div>
     )
 }

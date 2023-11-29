@@ -7,7 +7,8 @@ const NewGame = ({ onClick }) => {
     }
 
     return (
-        <div>
+        <div className="page-content-container">
+            <h1>Nopeustesti</h1>
             <h2>Aloita uusi peli  kirjoittamalla nimesi ja valitsemalla vaikeusaste</h2>
             <input type="text" placeholder="Kirjoita nimesi" onChange={setPlayerName} />
             <div className="difficulty-button-container" >
