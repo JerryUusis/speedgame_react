@@ -14,8 +14,9 @@ function App() {
   const [current, setCurrent] = useState(-1);
 
   const timeoutIdRef = useRef(null);
-
-  let pace = 1000;
+  const roundsCount = useRef(0);
+  const currentInst = useRef(0);
+  const paceRef = useRef(1000);
   let difficultyLevel;
 
   //randomnumgen
@@ -27,9 +28,6 @@ function App() {
     const levelIndex = levels.findIndex((item) => item.difficulty === difficulty);
     difficultyLevel = levels[levelIndex].circlesAmount;
 
-    // const { circlesAmount } = levels.find((item) => item.name === difficulty);
-    // levelsAmount = circlesAmount;
-
     const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
 
     setCircles(circlesArray)
@@ -39,47 +37,61 @@ function App() {
     })
 
     setGameLaunch((previousLaunch) => !previousLaunch)
+    gameStart()
+  }
+
+  const gameStart = () => {
     setGameOn(!gameOn)
     randomNumb()
   }
 
+  const circleClick = (id) => {
+    if (id === current) {
+      setScore(score + 1);
+      roundsCount.current--;
+      paceRef.current -=5;
+    } else {
+      stopHandler()
+    }
+  }
+
   const stopHandler = () => {
-    setGameOn(!gameOn)
-    setGameOver(!gameOver)
     clearTimeout(timeoutIdRef.current)
     timeoutIdRef.current = null;
+    setGameOn(false)
+    setGameOver(!gameOver)
+    roundsCount.current = null;
+    paceRef.current = 1000;
   }
 
   const closeHandler = () => {
-    setGameLaunch(!gameLaunch)
     setGameOver(!gameOver)
+    setGameLaunch(!gameLaunch)
     setScore(0)
-  }
-
-  const circleClick = (id) => {
-    console.log("circle was clicked", id)
-    setScore(score + 10)
   }
 
   //look for next active circle as long as current circle === nextactive
   const randomNumb = () => {
+    if (roundsCount.current >= 3) {
+      stopHandler()
+      return;
+    }
     let nextActive;
     do {
       nextActive = getRndInteger(0, difficultyLevel)
-    } while (nextActive === current);
+    } while (nextActive === currentInst.current);
 
     setCurrent(nextActive)
-
-    timeoutIdRef.current = setTimeout(randomNumb, pace)
+    currentInst.current = nextActive;
+    roundsCount.current++;
+    timeoutIdRef.current = setTimeout(randomNumb, paceRef.current)
     console.log(nextActive);
-  };
-  //setTimeout from react
+  }
 
   return (
     <div className="main-container">
-
       {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
-      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} current={current}/>}
+      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} current={current} />}
       {gameOver && <GameOver closeHandler={closeHandler} {...player} score={score} />}
     </div>
   )
