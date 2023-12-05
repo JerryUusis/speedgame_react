@@ -109,13 +109,12 @@ button:hover {
     padding: 3rem;
     border-radius: 50%;
     margin: 0 1rem;
-    transition: var(--transition)
+    transition: var(--transition);
 }
 
 .circle.active {
   background-color: #f18c4d;
-  transition: var(--transition)
-
+  transition: var(--transition);
 }
 
 table,
