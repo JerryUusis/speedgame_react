@@ -32,7 +32,6 @@ function App() {
 
     const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
 
-
     setCircles(circlesArray)
     setPlayer({
       name: name,
@@ -80,7 +79,7 @@ function App() {
     <div className="main-container">
 
       {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
-      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} />}
+      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} current={current}/>}
       {gameOver && <GameOver closeHandler={closeHandler} {...player} score={score} />}
     </div>
   )
