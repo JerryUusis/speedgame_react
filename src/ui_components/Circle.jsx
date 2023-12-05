@@ -1,6 +1,6 @@
-const Circle = ({circleClick, id}) => {
+const Circle = ({circleClick, id, current}) => {
     return (
-        <div className="circle" onClick={() => circleClick(id)}>
+        <div className={`circle ${current ? 'active' : ""}`} onClick={() => circleClick(id)}>
             <p></p>
         </div>
     )
