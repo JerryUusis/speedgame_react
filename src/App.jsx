@@ -2,7 +2,7 @@ import NewGame from "./components/NewGame"
 import Game from "./components/Game";
 import GameOver from "./components/GameOver";
 import { levels } from "./levels";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function App() {
   const [player, setPlayer] = useState()
@@ -13,7 +13,8 @@ function App() {
   const [gameOver, setGameOver] = useState(false)
   const [current, setCurrent] = useState(-1);
 
-  let timer;
+  const timeoutIdRef = useRef(null);
+
   let pace = 1000;
   let difficultyLevel;
 
@@ -46,7 +47,8 @@ function App() {
   const stopHandler = () => {
     setGameOn(!gameOn)
     setGameOver(!gameOver)
-    clearTimeout(timer)
+    clearTimeout(timeoutIdRef.current)
+    timeoutIdRef.current = null;
   }
 
   const closeHandler = () => {
@@ -69,7 +71,7 @@ function App() {
 
     setCurrent(nextActive)
 
-    timer = setTimeout(randomNumb, pace)
+    timeoutIdRef.current = setTimeout(randomNumb, pace)
     console.log(nextActive);
   };
   //setTimeout from react
