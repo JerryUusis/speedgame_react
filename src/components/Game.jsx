@@ -1,6 +1,7 @@
 import Circle from "../ui_components/Circle";
 
 const Game = ({ score, circles, stopHandler, circleClick }) => {
+
     return (
         <div className="page-content-container">
             <div className="circle-container">
@@ -8,7 +9,7 @@ const Game = ({ score, circles, stopHandler, circleClick }) => {
             </div>
             <h2>Current score</h2>
             <p>{score}</p>
-            <button onClick={stopHandler}>Lopeta peli</button>
+            <button onClick={() => stopHandler()}>Lopeta peli</button>
         </div>
     )
 }
