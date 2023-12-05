@@ -11,39 +11,75 @@ function App() {
   const [gameLaunch, setGameLaunch] = useState(true)
   const [gameOn, setGameOn] = useState(false)
   const [gameOver, setGameOver] = useState(false)
+  const [current, setCurrent] = useState(-1);
+
+  let timer;
+  let pace = 1000;
+  let difficultyLevel;
+
+  //randomnumgen
+  const getRndInteger = (min, max) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
 
   const gameSetHandler = (difficulty, name) => {
-    setPlayer({ name: name, difficulty: difficulty })
     const levelIndex = levels.findIndex((item) => item.difficulty === difficulty);
-    const difficultyLevel = levels[levelIndex].circlesAmount;
-    const circlesArray = Array.from({ length: difficultyLevel }, (x, i) => i);
+    difficultyLevel = levels[levelIndex].circlesAmount;
+
+    // const { circlesAmount } = levels.find((item) => item.name === difficulty);
+    // levelsAmount = circlesAmount;
+
+    const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
+
 
     setCircles(circlesArray)
+    setPlayer({
+      name: name,
+      difficulty: difficulty
+    })
 
-    setGameLaunch(!gameLaunch)
+    setGameLaunch((previousLaunch) => !previousLaunch)
     setGameOn(!gameOn)
-
+    randomNumb()
   }
+
   const stopHandler = () => {
     setGameOn(!gameOn)
     setGameOver(!gameOver)
+    clearTimeout(timer)
   }
-  
+
   const closeHandler = () => {
     setGameLaunch(!gameLaunch)
     setGameOver(!gameOver)
+    setScore(0)
   }
 
   const circleClick = (id) => {
     console.log("circle was clicked", id)
+    setScore(score + 10)
   }
+
+  //look for next active circle as long as current circle === nextactive
+  const randomNumb = () => {
+    let nextActive;
+    do {
+      nextActive = getRndInteger(0, difficultyLevel)
+    } while (nextActive === current);
+
+    setCurrent(nextActive)
+
+    timer = setTimeout(randomNumb, pace)
+    console.log(nextActive);
+  };
+  //setTimeout from react
 
   return (
     <div className="main-container">
-      
+
       {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
       {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} />}
-      {gameOver && <GameOver closeHandler={closeHandler} {...player}/>}
+      {gameOver && <GameOver closeHandler={closeHandler} {...player} score={score} />}
     </div>
   )
 }
