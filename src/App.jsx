@@ -12,6 +12,7 @@ function App() {
   const [gameOn, setGameOn] = useState(false)
   const [gameOver, setGameOver] = useState(false)
   const [current, setCurrent] = useState(-1);
+  const [modal, setModal] = useState(true)
 
   const timeoutIdRef = useRef(null);
   const roundsCount = useRef(0);
@@ -68,6 +69,11 @@ function App() {
     setGameOver(!gameOver)
     setGameLaunch(!gameLaunch)
     setScore(0)
+    setModal(true)
+  }
+
+  const closeModal = () => {
+    setModal(false)
   }
 
   //look for next active circle as long as current circle === nextactive
@@ -92,7 +98,7 @@ function App() {
     <div className="main-container">
       {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
       {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} current={current} />}
-      {gameOver && <GameOver closeHandler={closeHandler} {...player} score={score} />}
+      {gameOver && <GameOver modal={modal} closeModal={closeModal} closeHandler={closeHandler} {...player} score={score} />}
     </div>
   )
 }
