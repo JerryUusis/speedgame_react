@@ -15,7 +15,7 @@ const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficu
                     </div>
                 </div>
             }
-
+            <h1>Tulokset</h1>
             <table>
                 <tbody>
                     <tr>
@@ -23,8 +23,8 @@ const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficu
                         <th>Pisteet</th>
                         <th>Vaikeusaste</th>
                     </tr>
-                    {results.map((result) =>
-                        <tr key={result.name}>
+                    {results.map((result, index) =>
+                        <tr key={index}>
                             <td>{result.name}</td>
                             <td>{result.score}</td>
                             <td>{result.difficulty}</td>
