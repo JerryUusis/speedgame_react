@@ -1,12 +1,21 @@
-const GameOver = ({ closeHandler, name, difficulty, score }) => {
+const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficulty, score }) => {
+
     return (
 
         <div className="page-content-container">
-            <h2>Peli päättyi</h2>
-            <p>Hei {name}</p>
-            <p>Pelasit vaikeusasteella: {difficulty}</p>
-            <p>Pisteesi: {score}</p>
-            <button onClick={closeHandler}>Sulje</button>
+            {modal &&
+                <div className="modal">
+                    <div className="stats-container">
+                        <h1>Peli päättyi</h1>
+                        <p>Nimesi: {name}</p>
+                        <p>Pelasit vaikeusasteella: {difficulty}</p>
+                        <p>Pisteesi: {score}</p>
+                        <p className="score-message">{scoreMessage}</p>
+                        <button onClick={() => closeModal()}>Sulje</button>
+                    </div>
+                </div>
+            }
+
             <table>
                 <tbody>
                     <tr>
@@ -21,6 +30,7 @@ const GameOver = ({ closeHandler, name, difficulty, score }) => {
                     </tr>
                 </tbody>
             </table>
+            <button onClick={closeHandler}>Sulje</button>
         </div>
     )
 }

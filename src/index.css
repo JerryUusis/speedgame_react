@@ -117,6 +117,33 @@ button:hover {
   transition: var(--transition);
 }
 
+.modal {
+  background-color: var(--darkest);
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: absolute;
+}
+
+.stats-container {
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  justify-content: space-evenly;
+}
+
+.stats-container button {
+  margin: 0;
+  align-self: center;
+}
+
+.score-message {
+  font-style: italic;
+}
+
 table,
 th,
 tr,
