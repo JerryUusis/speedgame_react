@@ -1,4 +1,6 @@
-const GameOver = ({ modal, closeModal, closeHandler, name, difficulty, score }) => {
+const GameOver = ({ modal, closeModal, printScore, scoreMessage, closeHandler, name, difficulty, score }) => {
+
+    printScore(score)
     return (
 
         <div className="page-content-container">
@@ -9,6 +11,7 @@ const GameOver = ({ modal, closeModal, closeHandler, name, difficulty, score }) 
                         <p>Nimesi: {name}</p>
                         <p>Pelasit vaikeusasteella: {difficulty}</p>
                         <p>Pisteesi: {score}</p>
+                        <p>{scoreMessage}</p>
                         <button onClick={() => closeModal()}>Sulje</button>
                     </div>
                 </div>
