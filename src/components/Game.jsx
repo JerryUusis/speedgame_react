@@ -12,7 +12,7 @@ const Game = ({ score, circles, stopHandler, circleClick, current }) => {
                         id={i}
                         current={current === i} />)}
             </div>
-            <h2>Current score</h2>
+            <h2>Pisteesi</h2>
             <p>{score}</p>
             <button onClick={() => stopHandler()}>Lopeta peli</button>
         </div>
