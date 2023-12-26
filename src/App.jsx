@@ -1,8 +1,9 @@
 import NewGame from "./components/NewGame"
 import Game from "./components/Game";
 import GameOver from "./components/GameOver";
+import AlertMessage from "./ui_components/AlertMessage";
 import { levels } from "./levels";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 function App() {
   const [player, setPlayer] = useState()
@@ -16,6 +17,23 @@ function App() {
   const [modal, setModal] = useState(true);
   const [scoreMessage, setScoreMessage] = useState("");
   const [results, setResults] = useState([]);
+  // Hard code alert states
+  const [alertTitle] = useState("Virhe");
+  const [alertContent] = useState("Anna nimesi");
+  const [alertSeverity] = useState("warning");
+  const [alertOpen, setAlertOpen] = useState(false);
+
+  useEffect(() => {
+    if (alertOpen) {
+      const timeoutId = setTimeout(() => {
+        setAlertOpen(false);
+      }, 5000); 
+
+      return () => {
+        clearTimeout(timeoutId); 
+      };
+    }
+  }, [alertOpen]);
 
   const timeoutIdRef = useRef(null);
   const roundsCount = useRef(0);
@@ -25,31 +43,41 @@ function App() {
 
   const setPlayerName = (event) => {
     setName(event.target.value)
-}
+  }
 
   const getRndInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
+  const handleCloseAlert = () => {
+    setAlertOpen(false);
+  };
+
   const gameSetHandler = (difficulty, name) => {
-    const levelIndex = levels.findIndex((item) => item.difficulty === difficulty);
-    difficultyLevel = levels[levelIndex].circlesAmount;
+    if (name.trim() === "") {
+      setAlertOpen(true);
+    }
+    else {
 
-    const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
+      const levelIndex = levels.findIndex((item) => item.difficulty === difficulty);
+      difficultyLevel = levels[levelIndex].circlesAmount;
 
-    setCircles(circlesArray)
-    setPlayer({
-      name: name,
-      difficulty: difficulty
-    })
+      const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
 
-    setGameLaunch((previousLaunch) => !previousLaunch)
-    gameStart()
-  }
+      setCircles(circlesArray)
+      setPlayer({
+        name: name,
+        difficulty: difficulty
+      })
 
-  const gameStart = () => {
-    setGameOn(!gameOn)
-    randomNumb()
+      setGameLaunch((previousLaunch) => !previousLaunch)
+      gameStart()
+    }
+
+    const gameStart = () => {
+      setGameOn(!gameOn)
+      randomNumb()
+    }
   }
 
   const circleClick = (id) => {
@@ -134,6 +162,13 @@ function App() {
 
   return (
     <div className="main-container">
+      {alertOpen && <AlertMessage
+        title={alertTitle}
+        content={alertContent}
+        severity={alertSeverity}
+        open={alertOpen}
+        onClose={handleCloseAlert}
+      />}
       {gameLaunch && <NewGame
         onClick={gameSetHandler}
         player={player}
