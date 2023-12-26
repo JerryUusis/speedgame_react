@@ -1,4 +1,4 @@
-const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficulty, score }) => {
+const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficulty, score, results }) => {
 
     return (
 
@@ -23,11 +23,12 @@ const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficu
                         <th>Pisteet</th>
                         <th>Vaikeusaste</th>
                     </tr>
-                    <tr>
-                        <td>{name}</td>
-                        <td>{score}</td>
-                        <td>{difficulty}</td>
-                    </tr>
+                    {results.map((result) =>
+                        <tr key={result.name}>
+                            <td>{result.name}</td>
+                            <td>{result.score}</td>
+                            <td>{result.difficulty}</td>
+                        </tr>)}
                 </tbody>
             </table>
             <button onClick={closeHandler}>Sulje</button>
