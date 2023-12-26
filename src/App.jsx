@@ -12,7 +12,8 @@ function App() {
   const [gameOn, setGameOn] = useState(false)
   const [gameOver, setGameOver] = useState(false)
   const [current, setCurrent] = useState(-1);
-  const [modal, setModal] = useState(true)
+  const [modal, setModal] = useState(true);
+  const [scoreMessage, setScoreMessage] = useState("");
 
   const timeoutIdRef = useRef(null);
   const roundsCount = useRef(0);
@@ -20,7 +21,6 @@ function App() {
   const paceRef = useRef(1000);
   let difficultyLevel;
 
-  //randomnumgen
   const getRndInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   }
@@ -50,7 +50,7 @@ function App() {
     if (id === current) {
       setScore(score + 1);
       roundsCount.current--;
-      paceRef.current -=5;
+      paceRef.current -= 5;
     } else {
       stopHandler()
     }
@@ -76,6 +76,28 @@ function App() {
     setModal(false)
   }
 
+  const printScore = (score) => {
+    let resultMessage;
+
+    if (score < 10) {
+      resultMessage = "Yritä uudelleen";
+    } else if (score > 9 && score < 20) {
+      resultMessage = "Harjoittele";
+    } else if (score >= 20 && score < 30) {
+      resultMessage = "Kehityskelpoinen";
+    } else if (score >= 30 && score < 40) {
+      resultMessage = "Nopea";
+    } else if (score >= 40 && score < 70) {
+      resultMessage = "Erittäin nopea";
+    } else if (score >= 70 && score < 100) {
+      resultMessage = "Ällistyttävä";
+    } else {
+      resultMessage = "Uskomaton";
+    }
+    setScoreMessage(resultMessage)
+  }
+
+
   //look for next active circle as long as current circle === nextactive
   const randomNumb = () => {
     if (roundsCount.current >= 3) {
@@ -96,9 +118,23 @@ function App() {
 
   return (
     <div className="main-container">
-      {gameLaunch && <NewGame onClick={gameSetHandler} player={player} />}
-      {gameOn && <Game score={score} circles={circles} stopHandler={stopHandler} circleClick={circleClick} current={current} />}
-      {gameOver && <GameOver modal={modal} closeModal={closeModal} closeHandler={closeHandler} {...player} score={score} />}
+      {gameLaunch && <NewGame
+        onClick={gameSetHandler}
+        player={player} />}
+      {gameOn && <Game
+        score={score}
+        circles={circles}
+        stopHandler={stopHandler}
+        circleClick={circleClick}
+        current={current} />}
+      {gameOver && <GameOver
+        modal={modal}
+        printScore={printScore}
+        scoreMessage={scoreMessage}
+        closeModal={closeModal}
+        closeHandler={closeHandler}
+        {...player}
+        score={score} />}
     </div>
   )
 }
