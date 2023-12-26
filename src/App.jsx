@@ -59,6 +59,7 @@ function App() {
   const stopHandler = () => {
     clearTimeout(timeoutIdRef.current)
     timeoutIdRef.current = null;
+    printScore(score);
     setGameOn(false)
     setGameOver(!gameOver)
     roundsCount.current = null;
@@ -97,8 +98,6 @@ function App() {
     setScoreMessage(resultMessage)
   }
 
-
-  //look for next active circle as long as current circle === nextactive
   const randomNumb = () => {
     if (roundsCount.current >= 3) {
       stopHandler()
@@ -113,7 +112,6 @@ function App() {
     currentInst.current = nextActive;
     roundsCount.current++;
     timeoutIdRef.current = setTimeout(randomNumb, paceRef.current)
-    console.log(nextActive);
   }
 
   return (
@@ -129,7 +127,6 @@ function App() {
         current={current} />}
       {gameOver && <GameOver
         modal={modal}
-        printScore={printScore}
         scoreMessage={scoreMessage}
         closeModal={closeModal}
         closeHandler={closeHandler}

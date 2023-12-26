@@ -1,6 +1,5 @@
-const GameOver = ({ modal, closeModal, printScore, scoreMessage, closeHandler, name, difficulty, score }) => {
+const GameOver = ({ modal, closeModal, scoreMessage, closeHandler, name, difficulty, score }) => {
 
-    printScore(score)
     return (
 
         <div className="page-content-container">
