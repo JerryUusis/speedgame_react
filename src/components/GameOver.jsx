@@ -11,7 +11,7 @@ const GameOver = ({ modal, closeModal, printScore, scoreMessage, closeHandler, n
                         <p>Nimesi: {name}</p>
                         <p>Pelasit vaikeusasteella: {difficulty}</p>
                         <p>Pisteesi: {score}</p>
-                        <p>{scoreMessage}</p>
+                        <p className="score-message">{scoreMessage}</p>
                         <button onClick={() => closeModal()}>Sulje</button>
                     </div>
                 </div>
