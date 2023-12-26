@@ -14,6 +14,7 @@ function App() {
   const [current, setCurrent] = useState(-1);
   const [modal, setModal] = useState(true);
   const [scoreMessage, setScoreMessage] = useState("");
+  const [results, setResults] = useState([]);
 
   const timeoutIdRef = useRef(null);
   const roundsCount = useRef(0);
@@ -32,6 +33,7 @@ function App() {
     const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
 
     setCircles(circlesArray)
+    // Add handlePlayer function here
     setPlayer({
       name: name,
       difficulty: difficulty
@@ -56,10 +58,22 @@ function App() {
     }
   }
 
+  const handleResults = () => {
+    setResults((previousResults) => [
+      ...previousResults,
+      {
+        name: player.name,
+        difficulty: player.difficulty,
+        score: score
+      }
+    ])
+  }
+
   const stopHandler = () => {
     clearTimeout(timeoutIdRef.current)
     timeoutIdRef.current = null;
     printScore(score);
+    handleResults();
     setGameOn(false)
     setGameOver(!gameOver)
     roundsCount.current = null;
@@ -131,7 +145,8 @@ function App() {
         closeModal={closeModal}
         closeHandler={closeHandler}
         {...player}
-        score={score} />}
+        score={score}
+        results={results} />}
     </div>
   )
 }
