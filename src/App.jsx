@@ -27,10 +27,10 @@ function App() {
     if (alertOpen) {
       const timeoutId = setTimeout(() => {
         setAlertOpen(false);
-      }, 5000); 
+      }, 5000);
 
       return () => {
-        clearTimeout(timeoutId); 
+        clearTimeout(timeoutId);
       };
     }
   }, [alertOpen]);
@@ -55,7 +55,7 @@ function App() {
 
   const gameSetHandler = (difficulty, name) => {
     if (name.trim() === "") {
-      setAlertOpen(true);
+      setAlertOpen(true)
     }
     else {
 
@@ -74,10 +74,11 @@ function App() {
       gameStart()
     }
 
-    const gameStart = () => {
-      setGameOn(!gameOn)
-      randomNumb()
-    }
+  }
+
+  const gameStart = () => {
+    setGameOn(!gameOn)
+    randomNumb()
   }
 
   const circleClick = (id) => {
@@ -108,6 +109,7 @@ function App() {
     handleResults();
     setGameOn(false)
     setGameOver(!gameOver)
+    setName("")
     roundsCount.current = null;
     paceRef.current = 1000;
   }
