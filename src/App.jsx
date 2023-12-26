@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 
 function App() {
   const [player, setPlayer] = useState()
+  const [name, setName] = useState("");
   const [circles, setCircles] = useState([])
   const [score, setScore] = useState(0)
   const [gameLaunch, setGameLaunch] = useState(true)
@@ -22,6 +23,10 @@ function App() {
   const paceRef = useRef(1000);
   let difficultyLevel;
 
+  const setPlayerName = (event) => {
+    setName(event.target.value)
+}
+
   const getRndInteger = (min, max) => {
     return Math.floor(Math.random() * (max - min)) + min;
   }
@@ -33,7 +38,6 @@ function App() {
     const circlesArray = Array.from({ length: difficultyLevel }, (_, i) => i);
 
     setCircles(circlesArray)
-    // Add handlePlayer function here
     setPlayer({
       name: name,
       difficulty: difficulty
@@ -132,7 +136,9 @@ function App() {
     <div className="main-container">
       {gameLaunch && <NewGame
         onClick={gameSetHandler}
-        player={player} />}
+        player={player}
+        setPlayerName={setPlayerName}
+        name={name} />}
       {gameOn && <Game
         score={score}
         circles={circles}

@@ -1,10 +1,4 @@
-import { useState } from "react"
-const NewGame = ({ onClick }) => {
-    const [name, setName] = useState("");
-
-    const setPlayerName = (event) => {
-        setName(event.target.value)
-    }
+const NewGame = ({ onClick, setPlayerName, name}) => {
 
     return (
         <div className="page-content-container">
